@@ -12,6 +12,8 @@
 Отсутствие плюса или минуса говорит, что ключ есть в обоих файлах, и его значения совпадают. Во всех остальных ситуациях значение по ключу либо отличается, либо ключ есть только в одном файле.
 Ниже приведен пример сравнения такого типа файлов:
 
+[![asciicast](https://asciinema.org/a/C2wqgNrzbxILH6wSxf7LRfOo3.svg)](https://asciinema.org/a/C2wqgNrzbxILH6wSxf7LRfOo3)
+
 
 
 ### Hexlet tests and linter status:
