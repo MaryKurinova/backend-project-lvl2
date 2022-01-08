@@ -14,7 +14,7 @@ const genDiff = (file1, file2) => {
   const keys1 = Object.keys(fileJson1);
   const keys2 = Object.keys(fileJson2);
   const keysAll = _.union(keys1, keys2);
-  keysAll.sort(); 
+  keysAll.sort();
 
   for (const key of keysAll) {
     if (_.has(fileJson1, key) && _.has(fileJson2, key) && (fileJson1[key] === fileJson2[key])) {
