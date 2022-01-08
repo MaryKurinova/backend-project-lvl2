@@ -1,15 +1,17 @@
 {
   "name": "@hexlet/code",
-  "version": "0.0.2",
+  "version": "1.0.0",
+  "main": "src/index.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
-  "description": "[![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }, 
+  },
+  "description": "[![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)",
+  
+  "type": "module",
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MaryKurinova/backend-project-lvl2.git"
@@ -21,6 +23,10 @@
   },
   "homepage": "https://github.com/MaryKurinova/backend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^8.3.0"
+    "commander": "^8.3.0",
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7",
+    "webpack": "^5.65.0"
   }
 }

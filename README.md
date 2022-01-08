@@ -7,6 +7,12 @@
 
 [![asciicast](https://asciinema.org/a/Ah16DPoZptbo3HTa3UFHqkBRq.svg)](https://asciinema.org/a/Ah16DPoZptbo3HTa3UFHqkBRq)
 
+Далее нам необходимо произвести проверку плоских файлов JSON.
+Диф строится на основе того как файлы изменились относительно друг друга, ключи выводятся в алфавитном порядке.
+Отсутствие плюса или минуса говорит, что ключ есть в обоих файлах, и его значения совпадают. Во всех остальных ситуациях значение по ключу либо отличается, либо ключ есть только в одном файле.
+Ниже приведен пример сравнения такого типа файлов:
+
+
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)
