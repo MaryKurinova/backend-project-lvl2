@@ -1,17 +1,15 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "main": "src/genDiff.js",
+  "main": "index.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --bail"
   },
   "description": "[![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)",
-  
   "type": "module",
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MaryKurinova/backend-project-lvl2.git"
@@ -24,9 +22,17 @@
   "homepage": "https://github.com/MaryKurinova/backend-project-lvl2#readme",
   "dependencies": {
     "commander": "^8.3.0",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
     "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
     "webpack": "^5.65.0"
+  },
+  "devDependencies": {
+    "jes": "^0.6.1",
+    "jest": "^27.4.7"
   }
 }
