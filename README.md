@@ -26,7 +26,6 @@
 
 [![asciicast](https://asciinema.org/a/cGzZATmGEldrN6WleF9W1N3gi.svg)](https://asciinema.org/a/cGzZATmGEldrN6WleF9W1N3gi)
 
-
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)
 
