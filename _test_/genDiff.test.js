@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
-import getPath from '../src/getPath';
-import genDiff from '../index';
+import getPath from '../src/getPath.js';
+import genDiff from '../index.js';
 
 const file1 = getPath('file1.json');
 const file2 = getPath('file2.json');
@@ -16,5 +16,3 @@ test('genDiff return string', () => {
 test('genDiff return mistake', () => {
   expect(failFormat).toEqual("Check '.json', '.yaml', '.yml' formats");
 });
-
-

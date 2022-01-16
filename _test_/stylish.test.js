@@ -1,10 +1,10 @@
 import { test, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
-import parsers from '../src/parsers';
+import parsers from '../src/parsers.js';
 import getPath from '../src/getPath';
-import stylishFormat from '../src/formatters/stylish';
-import getTree from '../src/getTree';
+import stylishFormat from '../src/formatters/stylish.js';
+import getTree from '../src/getTree.js';
 
 const arg1 = getPath('file1.json');
 const arg2 = getPath('file2.json');

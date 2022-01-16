@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import parsers from './parsers';
-import trueFormat from './formatters/index';
+import parsers from './parsers.js';
+import trueFormat from './formatters/index.js';
 
 const checkFilesFormat = (file1, file2) => {
   const formats = ['.yml', '.yaml', '.json'];

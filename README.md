@@ -14,6 +14,7 @@
 
 [![asciicast](https://asciinema.org/a/YH1TupmXxH6JFp130d3A78rCg.svg)](https://asciinema.org/a/YH1TupmXxH6JFp130d3A78rCg)
 
+[![asciicast](https://asciinema.org/a/hTK2j2N6cgt7AZalzW3We68oR.svg)](https://asciinema.org/a/hTK2j2N6cgt7AZalzW3We68oR)
 
 
 ### Hexlet tests and linter status:
