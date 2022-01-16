@@ -23,5 +23,7 @@
 
 <a href="https://codeclimate.com/github/MaryKurinova/backend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/e181186341c12c3f9828/test_coverage" /></a>
 
+<a href="https://github.com/MaryKurinova/backend-project-lvl2/actions"><img src="https://github.com/MaryKurinova/backend-project-lvl2/workflows/Lint/badge.svg" alt="Github Actions" style="max-width: 100%;"></a></p>
+
 
 
