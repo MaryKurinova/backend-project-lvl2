@@ -1,3 +1,9 @@
-const JSONformat = (data) => JSON.stringify(data, null, 2);
+import _ from 'lodash';
 
-export default JSONformat;
+const Getjson = (ast) => {
+  const copy = _.cloneDeep(ast);
+
+  return JSON.stringify(copy);
+};
+
+export default Getjson;

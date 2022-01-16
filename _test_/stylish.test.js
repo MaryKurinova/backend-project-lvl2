@@ -2,7 +2,7 @@ import { test, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import parsers from '../src/parsers.js';
-import getPath from '../src/getPath';
+import getPath from '../src/getPath.js';
 import stylishFormat from '../src/formatters/stylish.js';
 import getTree from '../src/getTree.js';
 

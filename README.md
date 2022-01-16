@@ -16,6 +16,16 @@
 
 [![asciicast](https://asciinema.org/a/hTK2j2N6cgt7AZalzW3We68oR.svg)](https://asciinema.org/a/hTK2j2N6cgt7AZalzW3We68oR)
 
+Далее проводим рекурсивное сравнение файлов:
+
+[![asciicast](https://asciinema.org/a/N5tjKs84e8afFLCpMEFUK2rhI.svg)](https://asciinema.org/a/N5tjKs84e8afFLCpMEFUK2rhI)
+
+На этом шаге мы отделяем форматирование дифа от вычисления различий. Удобство внутреннего представления в том, что очень сильно упрощается форматирование, так как форматер работает уже с вычисленной разницей.
+
+Проект завершаем тем, что показываем имеющиеся файлы непосредственно в формате .json:
+
+[![asciicast](https://asciinema.org/a/cGzZATmGEldrN6WleF9W1N3gi.svg)](https://asciinema.org/a/cGzZATmGEldrN6WleF9W1N3gi)
+
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)
