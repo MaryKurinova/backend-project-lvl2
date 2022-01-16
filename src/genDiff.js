@@ -6,7 +6,7 @@ const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'))
 
 const operators = ['+', '-'];
 
-const genDiff = (file1, file2) => {
+export const genDiff = (file1, file2) => {
   const fileJson1 = fileParse(file1);
   const fileJson2 = fileParse(file2);
   let result = {};
@@ -32,4 +32,4 @@ const genDiff = (file1, file2) => {
   return result.replace(/"/g, '');
 };
 
-export default genDiff;
+

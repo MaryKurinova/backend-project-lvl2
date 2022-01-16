@@ -1,0 +1,17 @@
+plugins:
+  - jest
+
+env:
+  browser: true
+  es2021: true
+extends:
+  - airbnb-base
+  - plugin:jest/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+parserOptions:
+  ecmaVersion: 13
+  sourceType: module
+rules:
+  no-console: off
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
