@@ -1,35 +1,28 @@
-import _ from 'lodash';
-import { readFileSync } from 'fs';
+import fs from 'fs';
 import path from 'path';
+import parsers from './parsers';
+import trueFormat from './formatters/index';
 
-const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'));
-
-const operators = ['+', '-'];
-
-export const genDiff = (file1, file2) => {
-  const fileJson1 = fileParse(file1);
-  const fileJson2 = fileParse(file2);
-  let result = {};
-
-  const keys1 = Object.keys(fileJson1);
-  const keys2 = Object.keys(fileJson2);
-  const keysAll = _.union(keys1, keys2);
-  keysAll.sort();
-
-  for (const key of keysAll) {
-    if (_.has(fileJson1, key) && _.has(fileJson2, key) && (fileJson1[key] === fileJson2[key])) {
-      result[`  ${key}`] = fileJson1[key];
-    } else if (_.has(fileJson1, key) && _.has(fileJson2, key) && (fileJson1[key] !== fileJson2[key])) {
-      result[`${operators[1]} ${key}`] = fileJson1[key];
-      result[`${operators[0]} ${key}`] = fileJson2[key];
-    } else if (!_.has(fileJson1, key) || _.has(fileJson2, key)) {
-      result[`${operators[0]} ${key}`] = fileJson2[key];
-    } else if (_.has(fileJson1, key) || !_.has(fileJson2, key)) {
-      result[`${operators[1]} ${key}`] = fileJson1[key];
-    }
+const checkFilesFormat = (file1, file2) => {
+  const formats = ['.yml', '.yaml', '.json'];
+  if (
+    formats.includes(path.extname(file1))
+    && formats.includes(path.extname(file2))
+  ) {
+    return false;
   }
-  result = JSON.stringify(result, null, 2);
-  return result.replace(/"/g, '');
+  return true;
 };
 
+export const genDiff = (arg1, arg2, format) => {
+  if (checkFilesFormat(arg1, arg2)) {
+    return "Check '.json', '.yaml', '.yml' formats";
+  }
 
+  const file1 = fs.readFileSync(path.resolve(arg1), 'utf-8');
+  const file2 = fs.readFileSync(path.resolve(arg2), 'utf-8');
+  const firstFile = parsers(file1, arg1);
+  const secondFile = parsers(file2, arg2);
+
+  return trueFormat(firstFile, secondFile, format);
+};
