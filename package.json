@@ -8,7 +8,7 @@
   "scripts": {
     "test": "npx jest --bail"
   },
-  "description": "[![Actions Status](https://github.com/MaryKurinova/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MaryKurinova/backend-project-lvl2/actions)",
+  "description": "hexlet backend-project-lvl2",
   "type": "module",
   "repository": {
     "type": "git",
