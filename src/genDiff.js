@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import parsers from './parsers.js';
-import trueFormat from './formatters/index.js';
+import formatter from './formatters/index.js';
 
 const checkFilesFormat = (file1, file2) => {
   const formats = ['.yml', '.yaml', '.json'];
@@ -24,5 +24,7 @@ export const genDiff = (arg1, arg2, format) => {
   const firstFile = parsers(file1, arg1);
   const secondFile = parsers(file2, arg2);
 
-  return trueFormat(firstFile, secondFile, format);
+  return formatter(firstFile, secondFile, format);
 };
+
+export default genDiff;

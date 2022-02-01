@@ -1,67 +1,39 @@
-import _ from 'lodash';
+const getSpace = (space, spaceCount = 4) => ' '.repeat(spaceCount * space - 2);
 
-const stringify = (currentData, depth) => {
-  if (!_.isObject(currentData)) {
-    return String(currentData);
+const str = (data, compFileSpace) => {
+  if (typeof data !== 'object') {
+    return `${data}`;
   }
-
-  const indent = depth * 4;
-  const currentIndent = ' '.repeat(indent);
-  const bracketIndent = ' '.repeat(indent - 4);
-
-  const values = Object
-    .entries(currentData)
-    .map(([key, val]) => `${currentIndent}${key}: ${stringify(val, depth + 1)}`);
-
+  if (data === null) {
+    return null;
+  }
+  const lines = Object.entries(data).map(([key, value]) => `${getSpace(compFileSpace + 1)}  ${key}: ${str(value, compFileSpace + 1)}`);
   return [
     '{',
-    ...values,
-    `${bracketIndent}}`,
+    ...lines,
+    `${getSpace(compFileSpace)}  }`,
   ].join('\n');
 };
 
-const stylishFormat = (tree) => {
-  const iter = (node, depth) => node.flatMap((item) => {
-    const {
-      key, type, children, newValue, oldValue,
-    } = item;
-
-    const identSize = depth * 4;
-    const ident = ' '.repeat(identSize - 2);
-    const bracketIndent = ' '.repeat(identSize);
-
-    switch (type) {
-      case 'removed': {
-        return `${ident}- ${key}: ${stringify(newValue, depth + 1)}`;
-      }
-      case 'added': {
-        return `${ident}+ ${key}: ${stringify(newValue, depth + 1)}`;
-      }
-      case 'updated': {
-        return [
-          `${ident}- ${key}: ${stringify(oldValue, depth + 1)}`,
-          `${ident}+ ${key}: ${stringify(newValue, depth + 1)}`,
-        ];
-      }
-      case 'equal': {
-        return `${ident}  ${key}: ${stringify(newValue, depth + 1)}`;
-      }
-      case 'object': {
-        return [
-          `${ident}  ${key}: {`,
-          ...iter(children, depth + 1),
-          `${bracketIndent}}`,
-        ];
-      }
-      default: {
-        throw new Error(`Unknown type: ${type}`);
-      }
+const stylishFormat = (compFiles) => {
+  const getResult = (compFile, space) => compFile.map((item) => {
+    const getValue = (value, symbol) => `${getSpace(space)}${symbol} ${item.key}: ${str(value, space)}\n`;
+    switch (item.mark) {
+      case '-':
+        return `${getValue(item.val, '-')}`;
+      case '+':
+        return `${getValue(item.val, '+')}`;
+      case ' ':
+        return `${getValue(item.val, ' ')}`;
+      case '-+':
+        return `${getValue(item.val1, '-')}${getValue(item.val2, '+')}`;
+      case 'rec':
+        return `${getSpace(space)}  ${item.key}: {\n${getResult(item.child, space + 1).join('')}${getSpace(space)}  }\n`;
+      default:
+        throw new Error(`Mark not defined: ${item.mark}`);
     }
   });
-
-  const lines = iter(tree, 1);
-
-  return ['{', ...lines, '}'].join('\n');
+  return `{\n${getResult(compFiles, 1).join('')}}`;
 };
 
 export default stylishFormat;

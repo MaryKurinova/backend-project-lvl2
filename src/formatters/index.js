@@ -3,7 +3,7 @@ import plainFormat from './plain.js';
 import JSONformat from './json.js';
 import getTree from '../getTree.js';
 
-const trueFormat = (file1, file2, format) => {
+const formatter = (file1, file2, format) => {
   const tree = getTree(file1, file2);
 
   if (format === 'plain') {
@@ -12,8 +12,9 @@ const trueFormat = (file1, file2, format) => {
   if (format === 'json') {
     return JSONformat(tree);
   }
-
-  return stylishFormat(tree);
+  if (format === 'stylish') {
+    return stylishFormat(tree);
+  }
 };
 
-export default trueFormat;
+export default formatter;

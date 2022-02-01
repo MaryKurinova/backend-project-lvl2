@@ -1,49 +1,31 @@
-import _ from 'lodash';
-
-const stringify = (value) => {
-  if (_.isObject(value)) {
+const str = (val) => {
+  if (val === null) {
+    return null;
+  } if (typeof val === 'object') {
     return '[complex value]';
+  } if (typeof val === 'string') {
+    return `'${val}'`;
   }
-  if (_.isString(value)) {
-    return `'${value}'`;
-  }
-
-  return value;
+  return String(val);
 };
 
-const plainFormat = (data, prefix = '') => {
-  const result = data.map((item) => {
-    const {
-      key, type, children, newValue, oldValue,
-    } = item;
-    const currentOldValue = stringify(oldValue);
-    const currentNewValue = stringify(newValue);
-    const currentKey = prefix === '' ? key : `${prefix}.${key}`;
-
-    switch (type) {
-      case 'object': {
-        const innerTree = plainFormat(children, currentKey);
-        return innerTree;
-      }
-      case 'added': {
-        return `Property '${currentKey}' was added with value: ${currentNewValue}`;
-      }
-      case 'removed': {
-        return `Property '${currentKey}' was removed`;
-      }
-      case 'equal': {
-        return null;
-      }
-      case 'updated': {
-        return `Property '${currentKey}' was updated. From ${currentOldValue} to ${currentNewValue}`;
-      }
-      default: {
-        return `Unknown type: ${type}`;
-      }
+const plainFormat = (compFile) => {
+  const transform = (nodes, parent) => nodes.filter((item) => item.mark !== ' ').map((item) => {
+    const property = parent ? `${parent}.${item.key}` : item.key;
+    switch (item.mark) {
+      case '+':
+        return `Property '${property}' was added with value: ${str(item.val)}`;
+      case '-':
+        return `Property '${property}' was removed`;
+      case '-+':
+        return `Property '${property}' was updated. From ${str(item.val1)} to ${str(item.val2)}`;
+      case 'rec':
+        return `${transform(item.child, property)}`;
+      default:
+        throw new Error(`Mark not defined: ${item.mark}`);
     }
-  }).filter(_.identity).join('\n');
-
-  return result;
+  }).join('\n');
+  return transform(compFile, 0);
 };
 
 export default plainFormat;
