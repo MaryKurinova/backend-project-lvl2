@@ -1,31 +1,39 @@
-const str = (val) => {
-  if (val === null) {
-    return null;
-  } if (typeof val === 'object') {
+import _ from 'lodash';
+
+const stringify = (value) => {
+  if (_.isObject(value)) {
     return '[complex value]';
-  } if (typeof val === 'string') {
-    return `'${val}'`;
   }
-  return String(val);
+  if (_.isString(value)) {
+    return `'${value}'`;
+  }
+  return value;
 };
 
-const plainFormat = (compFile) => {
-  const transform = (nodes, parent) => nodes.filter((item) => item.mark !== ' ').map((item) => {
-    const property = parent ? `${parent}.${item.key}` : item.key;
-    switch (item.mark) {
-      case '+':
-        return `Property '${property}' was added with value: ${str(item.val)}`;
-      case '-':
-        return `Property '${property}' was removed`;
-      case '-+':
-        return `Property '${property}' was updated. From ${str(item.val1)} to ${str(item.val2)}`;
-      case 'rec':
-        return `${transform(item.child, property)}`;
+const iter = (tree, path = '') => {
+  const toString = ({ key, value, status }) => {
+    const commonPath = path ? `${path}.${key}` : key;
+    switch (status) {
+      case 'nested':
+        return iter(value, commonPath);
+      case 'added':
+        return `Property '${commonPath}' was added with value: ${stringify(value)}`;
+      case 'removed':
+        return `Property '${commonPath}' was removed`;
+      case 'changed':
+        return `Property '${commonPath}' was updated. From ${stringify(value.first)} to ${stringify(value.second)}`;
+      case 'unchanged':
+        return false;
       default:
-        throw new Error(`Mark not defined: ${item.mark}`);
+        throw new Error(`Unknown status ${status}`);
     }
-  }).join('\n');
-  return transform(compFile, 0);
+  };
+  return tree.flatMap(toString);
 };
+
+const plainFormat = (data) =>
+  iter(data)
+    .filter((item) => item)
+    .join('\n');
 
 export default plainFormat;

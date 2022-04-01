@@ -18,4 +18,6 @@ rules:
   import/extensions: off
   import/no-named-as-default: off
   consistent-return: off
+  import/named: off
+  implicit-arrow-linebreak: off
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]

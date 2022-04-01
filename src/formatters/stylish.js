@@ -1,39 +1,51 @@
-const getSpace = (space, spaceCount = 4) => ' '.repeat(spaceCount * space - 2);
+import _ from 'lodash';
 
-const str = (data, compFileSpace) => {
-  if (typeof data !== 'object') {
-    return `${data}`;
-  }
-  if (data === null) {
-    return null;
-  }
-  const lines = Object.entries(data).map(([key, value]) => `${getSpace(compFileSpace + 1)}  ${key}: ${str(value, compFileSpace + 1)}`);
-  return [
-    '{',
-    ...lines,
-    `${getSpace(compFileSpace)}  }`,
-  ].join('\n');
+const getKey = (obj) => obj.key;
+const getValue = (obj) => obj.value;
+const getStatus = (obj) => obj.status;
+const indent = (depth, spaceCount = 4, currentIndent = ' ') => {
+  const indentSize = depth * spaceCount - 2;
+  return currentIndent.repeat(indentSize);
 };
 
-const stylishFormat = (compFiles) => {
-  const getResult = (compFile, space) => compFile.map((item) => {
-    const getValue = (value, symbol) => `${getSpace(space)}${symbol} ${item.key}: ${str(value, space)}\n`;
-    switch (item.mark) {
-      case '-':
-        return `${getValue(item.val, '-')}`;
-      case '+':
-        return `${getValue(item.val, '+')}`;
-      case ' ':
-        return `${getValue(item.val, ' ')}`;
-      case '-+':
-        return `${getValue(item.val1, '-')}${getValue(item.val2, '+')}`;
-      case 'rec':
-        return `${getSpace(space)}  ${item.key}: {\n${getResult(item.child, space + 1).join('')}${getSpace(space)}  }\n`;
-      default:
-        throw new Error(`Mark not defined: ${item.mark}`);
+const stylishFormat = (data) => {
+  const getDataFromObject = (currentValue, currentDepth) => {
+    if (!_.isObject(currentValue)) {
+      return `${currentValue}`;
     }
-  });
-  return `{\n${getResult(compFiles, 1).join('')}}`;
+
+    const lines = Object.entries(currentValue).map(([key, val]) => `  ${indent(currentDepth)}${key}: ${getDataFromObject(val, currentDepth + 1)}`);
+
+    return ['{', ...lines, `${indent(currentDepth).slice(2)}}`].join('\n');
+  };
+
+  const makeResultString = (arr, depth) => {
+    const currentIndent = indent(depth);
+    const bracketIndent = currentIndent.slice(2);
+
+    const result = arr.map((item) => {
+      const key = getKey(item);
+      const value = getValue(item);
+      const status = getStatus(item);
+      switch (status) {
+        case 'nested':
+          return `${indent(depth)}  ${key}: ${makeResultString(value, depth + 1)}`;
+        case 'unchanged':
+          return `${currentIndent}  ${key}: ${getDataFromObject(value, depth + 1)}`;
+        case 'removed':
+          return `${currentIndent}- ${key}: ${getDataFromObject(value, depth + 1)}`;
+        case 'added':
+          return `${currentIndent}+ ${key}: ${getDataFromObject(value, depth + 1)}`;
+        case 'changed':
+          return `${currentIndent}- ${key}: ${getDataFromObject(value.first, depth + 1)}\n${currentIndent}+ ${key}: ${getDataFromObject(value.second, depth + 1)}`;
+        default:
+          throw new Error(`${status} - Unexpected status`);
+      }
+    });
+
+    return ['{', ...result, `${bracketIndent}}`].join('\n');
+  };
+  return makeResultString(data, 1);
 };
 
 export default stylishFormat;

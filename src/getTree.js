@@ -1,25 +1,53 @@
 import _ from 'lodash';
 
-const getTree = (file1, file2) => {
-  const keys = Object.keys({ ...file1, ...file2 });
-  const sorted = _.sortBy(keys);
-  return sorted.map((key) => {
-    if (!_.has(file2, key)) {
-      return { mark: '-', key, val: file1[key] };
-    }
-    if (!_.has(file1, key)) {
-      return { mark: '+', key, val: file2[key] };
-    }
-    if (_.isPlainObject(file1[key]) && _.isPlainObject(file2[key])) {
-      return { mark: 'rec', key, child: getTree(file1[key], file2[key]) };
-    }
-    if (file1[key] !== file2[key]) {
+const getTree = (obj1, obj2) => {
+  const key1 = Object.keys(obj1);
+  const key2 = Object.keys(obj2);
+
+  const uniqKeysFromObjects = _.sortBy(_.union(key1, key2));
+  const result = uniqKeysFromObjects.map((key) => {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+
+    if (_.isObject(value1) && _.isObject(value2)) {
       return {
-        mark: '-+', key, val1: file1[key], val2: file2[key],
+        key,
+        value: getTree(value1, value2),
+        status: 'nested',
       };
     }
-    return { mark: ' ', key, val: file1[key] };
+    if (!_.has(obj1, key)) {
+      return {
+        key,
+        value: value2,
+        status: 'added',
+      };
+    }
+    if (!_.has(obj2, key)) {
+      return {
+        key,
+        value: value1,
+        status: 'removed',
+      };
+    }
+    if (value1 !== value2) {
+      return {
+        key,
+        value: {
+          first: value1,
+          second: value2,
+        },
+        status: 'changed',
+      };
+    }
+    return {
+      key,
+      value: value1,
+      status: 'unchanged',
+    };
   });
+
+  return result;
 };
 
 export default getTree;
