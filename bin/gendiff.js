@@ -12,7 +12,6 @@ program
   .argument('<filepath1>', 'path to the first file')
   .argument('<filepath2>', 'path to the second file')
   .action((filepath1, filepath2) => {
-    // eslint-disable-next-line no-console
     console.log(genDiff(filepath1, filepath2, program.opts().format));
   });
 program.parse();
