@@ -22,7 +22,7 @@ const checkExtension = (filePath) => {
   throw new Error(`${fileFormat} extension is not supported. Available json or yaml`);
 };
 
-const readFile = (filepath) => {
+const parsers = (filepath) => {
   const extension = checkExtension(filepath);
   const normalizeFilePath = getFullPath(filepath);
   const rawData = getData(normalizeFilePath);
@@ -30,4 +30,4 @@ const readFile = (filepath) => {
   return obj;
 };
 
-export default readFile;
+export default parsers;
