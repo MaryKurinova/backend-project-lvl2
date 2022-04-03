@@ -13,9 +13,9 @@ const cases = [
   ['json', 'stylish', 'stylish.txt'],
   ['json', 'plain', 'plain.txt'],
   ['json', 'json', 'json.txt'],
-  ['yaml', 'stylish', 'stylish.txt'],
-  ['yaml', 'plain', 'plain.txt'],
-  ['yaml', 'json', 'json.txt'],
+  ['yml', 'stylish', 'stylish.txt'],
+  ['yml', 'plain', 'plain.txt'],
+  ['yml', 'json', 'json.txt'],
 ];
 
 describe('test genDiff, each cases', () => {
