@@ -13,5 +13,5 @@ it('test genDiff format plain', () => {
 });
 
 it('test genDiff format json', () => {
-  expect(genDiff('file1.yml', 'file2.yml', 'json')).toEqual(readFile('json.txt'));
+  expect(genDiff('file1.json', 'file2.json', 'json')).toEqual(readFile('json.txt'));
 });
