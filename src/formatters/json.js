@@ -1,3 +1,3 @@
-const json = (data) => JSON.stringify(data);
+const json = (diff) => JSON.stringify(diff);
 
 export default json;
