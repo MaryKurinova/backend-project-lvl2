@@ -1,5 +1,6 @@
 import stylish from './stylish.js';
 import plainFormat from './plain.js';
+import json from './json.js'
 
 const formatter = (data, formatType) => {
   switch (formatType) {
@@ -8,7 +9,7 @@ const formatter = (data, formatType) => {
     case 'plain':
       return plainFormat(data);
     case 'json':
-      return JSON.stringify(data);
+      return json(data);
     default:
       throw new Error(`Unknown format: ${formatType}!`);
   }
