@@ -18,4 +18,3 @@ test-coverage:
 
 test-watch:
 	NODE_OPTIONS=--experimental-vm-modules npx jest --bail --watch
-
