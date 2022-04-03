@@ -17,7 +17,7 @@ const checkExtension = (filePath) => {
     return 'json';
   }
   if (fileFormat === 'yaml' || fileFormat === 'yml') {
-    return 'yml';
+    return 'yaml';
   }
   throw new Error(`${fileFormat} extension is not supported. Available json or yaml`);
 };
