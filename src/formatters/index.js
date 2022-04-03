@@ -1,6 +1,6 @@
 import stylish from './stylish.js';
 import plainFormat from './plain.js';
-import json from './json.js'
+import json from './json.js';
 
 const formatter = (data, formatType) => {
   switch (formatType) {
