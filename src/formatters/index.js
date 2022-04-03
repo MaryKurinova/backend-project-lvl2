@@ -9,7 +9,7 @@ export default (diff, format) => {
       return plain(diff);
     case 'json':
       return JSON.stringify(diff);
-    default:
-      throw new Error(`Undefined format ${format}`);
+    //default:
+    //  throw new Error(`Undefined format ${format}`);
   }
 };
