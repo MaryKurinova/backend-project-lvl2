@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "main": "src/formatters/index.js",
+  "main": "index.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
