@@ -31,9 +31,9 @@ const iter = (tree, path = '') => {
   return tree.flatMap(toString);
 };
 
-const plainFormat = (data) =>
+const plainFormat = (data) => {
   iter(data)
     .filter((item) => item)
     .join('\n');
-
+};
 export default plainFormat;
