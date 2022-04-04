@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "main": "bin/gendiff.js",
+  "main": "src/genDiff.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
