@@ -32,8 +32,7 @@ const iter = (tree, path = '') => {
 };
 
 const plainFormat = (data) =>
-  (
-    iter(data)
+  (iter(data)
       .filter((item) => item)
       .join('\n'));
 export default plainFormat;
