@@ -19,7 +19,7 @@ const checkExtension = (filePath) => {
   if (fileFormat === 'yaml' || fileFormat === 'yml') {
     return yml.safeLoad;
   }
-  throw new Error(`${fileFormat} extension is not supported. Available json or yaml`);
+  return undefined;
 };
 
 const parsers = (filepath) => {
