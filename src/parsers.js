@@ -13,10 +13,10 @@ const getData = (filepath) => readFileSync(filepath, 'utf8');
 const checkExtension = (filePath) => {
   const fileFormat = getExtension(filePath);
 
-  if (fileFormat === 'json') {
+  if (fileFormat === JSON.parse) {
     return JSON.parse;
   }
-  if (fileFormat === 'yaml' || fileFormat === 'yml') {
+  if (fileFormat === yml.safeLoad) {
     return yml.safeLoad;
   }
   return undefined;
