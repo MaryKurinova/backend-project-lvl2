@@ -9,13 +9,6 @@ const getTree = (obj1, obj2) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
-    if (_.isObject(value1) && _.isObject(value2)) {
-      return {
-        value: getTree(value1, value2),
-        status: 'nested',
-        key,
-      };
-    }
     if (!_.has(obj1, key)) {
       return {
         value: value2,
@@ -27,6 +20,13 @@ const getTree = (obj1, obj2) => {
       return {
         value: value1,
         status: 'removed',
+        key,
+      };
+    }
+    if (_.isObject(value1) && _.isObject(value2)) {
+      return {
+        value: getTree(value1, value2),
+        status: 'nested',
         key,
       };
     }
