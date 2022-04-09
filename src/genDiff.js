@@ -1,7 +1,7 @@
+import fs from 'fs';
 import getTree from './getTree.js';
 import parsers from './parsers.js';
 import formatter from './formatters/index.js';
-import fs from 'fs';
 
 export default (filePath1, filePath2, formatOutput = 'stylish') => {
   const dataFile1 = parsers(fs.readFileSync(filePath1, 'utf-8'));
@@ -10,5 +10,3 @@ export default (filePath1, filePath2, formatOutput = 'stylish') => {
 
   return formatter(diffTree, formatOutput);
 };
-
-//export default genDiff;
