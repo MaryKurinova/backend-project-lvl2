@@ -1,15 +1,16 @@
-import yml from 'js-yaml';
+import _ from 'lodash';
+import yaml from 'js-yaml';
 
-export default (data) => {
-  try {
-    return JSON.parse(data);
-  } catch {
-    console.log('json parsing failed, trying another parser');
+const parse = {
+  yaml: yaml.load,
+  yml: yaml.load,
+  json: JSON.parse,
+};
+
+export default (data, format) => {
+  if (!_.has(parse, format)) {
+    throw new Error(`Unknown extension: '${format}'!`);
   }
-  try {
-    return yml.safeLoad(data);
-  } catch {
-    console.log('yaml parsing failed');
-  }
-  return new Error('cannot parse data');
+  const parsers = parse[format];
+  return parsers(data);
 };
