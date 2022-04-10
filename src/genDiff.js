@@ -1,19 +1,18 @@
-import { readFileSync } from 'fs';
-import { resolve, extname } from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import getTree from './getTree.js';
 import parsers from './parsers.js';
-import formatter from './formatters/index.js';
+import format from './formatters/index.js';
 
-const readFile = (file) => readFileSync(resolve(file), 'utf8');
+export default (path1, path2, formatter = 'stylish') => {
+  const content1 = fs.readFileSync(path1);
+  const content2 = fs.readFileSync(path2);
+  const format1 = path.extname(path1).slice(1);
+  const format2 = path.extname(path2).slice(1);
+  const data1 = parsers(content1, format1);
+  const data2 = parsers(content2, format2);
 
-const getFile = (file) => {
-  const getFile1 = readFile(file);
-  const getFile2 = extname(file).slice(1);
-  return parsers(getFile1, getFile2);
-};
-export default (file1, file2, requiredFormat = 'stylish') => {
-  const dataFile1 = getFile(file1);
-  const dataFile2 = getFile(file2);
-  const diffTree = getTree(dataFile1, dataFile2);
-  return formatter(diffTree, requiredFormat);
+  const diff = getTree(data1, data2);
+
+  return format(diff, formatter);
 };
